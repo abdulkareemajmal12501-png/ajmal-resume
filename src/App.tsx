@@ -26,11 +26,13 @@ const certificates = [
 ];
 
 const contacts = [
-  { label: 'Email', value: 'abdulkareemajmal12501@gmail.com', icon: '📧', href: 'mailto:abdulkareemajmal12501@gmail.com' },
-  { label: 'GitHub', value: 'github.com/abdulkareemajmal12501-png', icon: '🐙', href: 'https://github.com/abdulkareemajmal12501-png' },
-  { label: 'Kaggle', value: 'kaggle.com/abdulkarimajmal', icon: '📊', href: 'https://kaggle.com/abdulkarimajmal' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/abdul-reem-ajmal-12b256335', icon: '💼', href: 'https://linkedin.com/in/abdul-reem-ajmal-12b256335' },
-  { label: 'Fiverr', value: 'fiverr.com/users/abdulkarimajmal', icon: '🎨', href: 'https://fiverr.com/users/abdulkarimajmal' },
+  { label: 'Email', value: 'abdulkareemajmal12501@gmail.com', icon: 'mail', href: 'mailto:abdulkareemajmal12501@gmail.com' },
+  { label: 'LinkedIn', value: 'linkedin.com/in/abdul-reem-ajmal-12b256335', icon: 'linkedin', href: 'https://linkedin.com/in/abdul-reem-ajmal-12b256335' },
+  { label: 'Phone', value: '+91 63847 55690', icon: 'phone', href: 'tel:+916384755690' },
+  { label: 'Location', value: 'Jamal Mohamed College, Trichy', icon: 'location', href: '#' },
+  { label: 'GitHub', value: 'github.com/abdulkareemajmal12501-png', icon: 'github', href: 'https://github.com/abdulkareemajmal12501-png' },
+  { label: 'Kaggle', value: 'kaggle.com/abdulkarimajmal', icon: 'kaggle', href: 'https://kaggle.com/abdulkarimajmal' },
+  { label: 'Fiverr', value: 'fiverr.com/users/abdulkarimajmal', icon: 'fiverr', href: 'https://fiverr.com/users/abdulkarimajmal' },
 ];
 const projects = [
   {
@@ -291,30 +293,57 @@ function App() {
             }}
           >
             {contacts.map((contact, index) => {
-              const platform = ['email', 'github', 'kaggle', 'linkedin', 'fiverr'][index];
               return (
                 <motion.a
                   key={contact.label}
                   className="contact-card"
-                  data-platform={platform}
+                  data-platform={contact.icon}
                   href={contact.href}
                   target="_blank"
                   rel="noreferrer"
                   variants={{
-                    hidden: { opacity: 0, y: 40 },
+                    hidden: { 
+                      opacity: 0, 
+                      y: 48,
+                      scale: 0.85,
+                      rotateZ: (index * 72)
+                    },
                     visible: { 
                       opacity: 1, 
                       y: 0, 
-                      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+                      scale: 1,
+                      rotateZ: 0,
+                      transition: { 
+                        type: "spring",
+                        stiffness: 300 + (index * 20),
+                        damping: 15 
+                      } 
                     }
                   }}
                   whileHover={{ 
-                    y: -10, 
-                    scale: 1.03,
-                    transition: { duration: 0.28, type: "spring" }
+                    y: -14, 
+                    scale: 1.06,
+                    rotateZ: -10,
+                    transition: { 
+                      type: "spring", 
+                      stiffness: 420,
+                      damping: 18 
+                    } 
                   }}
+                  whileTap={{ 
+                    scale: 0.94 
+                  }}
+                  transition={{ type: "spring" }}
                 >
-                  <div className="contact-icon">{contact.icon}</div>
+                  <div className="contact-icon" aria-hidden="true">
+                    <img 
+                      src={`/images/${contact.icon}.svg`} 
+                      alt="" 
+                      width="64" 
+                      height="64" 
+                    />
+                  </div>
+
                   <h3>{contact.label}</h3>
                 </motion.a>
               );
