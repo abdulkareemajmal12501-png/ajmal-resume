@@ -9,15 +9,20 @@ const bioParts = [
   'My dedication to continuous learning has led me to earn professional certifications from Google and Kaggle. I have mastered Python Programming and completed an intensive course in AI Agents, which allows me to build autonomous AI systems. I also take pride in my freelance work on Fiverr, where I provide high-quality Prompt Engineering and Graphic Design services.',
 ];
 const skills = [
-  'Website Development',
-  'UI/UX Design',
-  'Python',
-  'HTML',
-  'CSS',
-  'Data Entry',
-  'MS Packages',
-  'Prompt Engineering',
-  'AI Tools',
+  { name: 'Website Development', category: 'Frontend', logo: '/images/skills/website.svg' },
+  { name: 'UI/UX Design', category: 'Frontend', logo: '/images/skills/uiux.svg' },
+  { name: 'HTML', category: 'Frontend', logo: '/images/skills/html.svg' },
+  { name: 'CSS', category: 'Frontend', logo: '/images/skills/css.svg' },
+  { name: 'Python', category: 'Backend', logo: '/images/skills/python.svg' },
+  { name: 'Node.js', category: 'Backend', logo: '/images/skills/nodejs.svg' },
+  { name: 'Supabase', category: 'Backend', logo: '/images/skills/supabase.svg' },
+  { name: 'MS Packages', category: 'Tools', logo: '/images/skills/mspackages.svg' },
+  { name: 'Git', category: 'Tools', logo: '/images/skills/git.svg' },
+  { name: 'GitHub', category: 'Tools', logo: '/images/skills/github.svg' },
+  { name: 'VS Code', category: 'Tools', logo: '/images/skills/vscode.svg' },
+  { name: 'Data Entry', category: 'AI & Other', logo: '/images/skills/dataentry.svg' },
+  { name: 'Prompt Engineering', category: 'AI & Other', logo: '/images/skills/prompt.svg' },
+  { name: 'AI Tools', category: 'AI & Other', logo: '/images/skills/ai.svg' },
 ];
 const certificates = [
   { title: 'Python Programming', issuer: 'Kaggle', subtitle: 'Professional proficiency in Python fundamentals' },
@@ -26,12 +31,29 @@ const certificates = [
 ];
 
 const contacts = [
-  { label: 'Email', value: 'abdulkareemajmal12501@gmail.com', icon: '📧', href: 'mailto:abdulkareemajmal12501@gmail.com' },
-  { label: 'GitHub', value: 'github.com/abdulkareemajmal12501-png', icon: '🐙', href: 'https://github.com/abdulkareemajmal12501-png' },
-  { label: 'Kaggle', value: 'kaggle.com/abdulkarimajmal', icon: '📊', href: 'https://kaggle.com/abdulkarimajmal' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/abdul-reem-ajmal-12b256335', icon: '💼', href: 'https://linkedin.com/in/abdul-reem-ajmal-12b256335' },
-  { label: 'Fiverr', value: 'fiverr.com/users/abdulkarimajmal', icon: '🎨', href: 'https://fiverr.com/users/abdulkarimajmal' },
+  { label: 'Email', icon: 'mail', href: 'mailto:abdulkareemajmal12501@gmail.com' },
+  { label: 'LinkedIn', icon: 'linkedin', href: 'https://linkedin.com/in/abdul-reem-ajmal-12b256335' },
+  { label: 'GitHub', icon: 'github', href: 'https://github.com/abdulkareemajmal12501-png' },
+  { label: 'Kaggle', icon: 'kaggle', href: 'https://www.kaggle.com/abdulkarimajmal' },
+  { label: 'Fiverr', icon: 'fiverr', href: 'https://fiverr.com/users/abdulkarimajmal' },
 ];
+
+const skillColorMap: Record<string, string> = {
+  Frontend: '#00f6ff',
+  Backend: '#a78bfa',
+  Tools: '#f472b6',
+  'AI & Other': '#34d399',
+};
+
+const contactColorMap: Record<string, string> = {
+  mail: '#00f6ff',
+  linkedin: '#0ea5e9',
+  phone: '#10b981',
+  location: '#f59e0b',
+  github: '#8b5cf6',
+  kaggle: '#20beff',
+  fiverr: '#f97316',
+};
 const projects = [
   {
     title: 'Time Net Cafe Website',
@@ -46,6 +68,7 @@ const projects = [
     technologies: 'React.js, Tailwind CSS, Supabase, Netlify',
     purpose: 'To provide a centralized digital platform for travel enthusiasts to discover and plan journeys efficiently through an intuitive and visually engaging experience.',
     href: 'https://poetic-pothos-c3a312.netlify.app/',
+    codeHref: 'https://github.com/abdulkareemajmal12501-png/wanderlustguidewebsite',
   },
   {
     title: 'JMC-APP – UI/UX Design Framework',
@@ -53,6 +76,14 @@ const projects = [
     technologies: 'Figma, UI/UX Design',
     purpose: 'To deliver a polished design system and interactive prototype for application development, emphasizing intuitive navigation and visual consistency.',
     href: 'https://www.figma.com/design/zFPlp8V2U25T5RgZMgqIgO/JMC-APP?node-id=2-919&t=qAuaQpngDm4JiWx1-1',
+  },
+  {
+    title: 'Gesturecargame',
+    description: 'A browser-based jumping game controlled using hand gestures via webcam.',
+    technologies: 'HTML, CSS, JavaScript, MediaPipe',
+    purpose: 'To create an interactive browser game that uses hand gestures via webcam input, demonstrating real-time computer vision using MediaPipe.',
+    href: 'https://guesturejumpgame.netlify.app/',
+    codeHref: 'https://github.com/abdulkareemajmal12501-png/gesture-car-game',
   },
 ];
 
@@ -207,16 +238,27 @@ function App() {
             <span>Skills</span>
             <h2>Tools and strengths I bring to every project.</h2>
           </div>
-          <div className="skill-grid">
-            {skills.map((skill) => (
-              <motion.div
-                key={skill}
-                className="skill-pill"
-                whileHover={{ y: -6, scale: 1.03 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-              >
-                {skill}
-              </motion.div>
+          <div className="skill-groups">
+            {['Frontend', 'Backend', 'Tools', 'AI & Other'].map((category) => (
+              <div key={category} className="skill-group">
+                <h3 className="skill-category-title">{category}</h3>
+                <div className="skill-grid">
+                  {skills
+                    .filter((skill) => skill.category === category)
+                    .map((skill) => (
+                      <motion.div
+                        key={skill.name}
+                        className="skill-pill"
+                        style={{ '--skill-color': skillColorMap[skill.category] } as React.CSSProperties}
+                        whileHover={{ y: -6, scale: 1.03 }}
+                        transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+                      >
+                        <img className="skill-logo" src={skill.logo} alt={skill.name} />
+                        {skill.name}
+                      </motion.div>
+                    ))}
+                </div>
+              </div>
             ))}
           </div>
         </section>
@@ -265,7 +307,12 @@ function App() {
                   <strong>Purpose of Website</strong>
                   <p>{project.purpose}</p>
                 </div>
-                <a href={project.href} target="_blank" rel="noreferrer">Live Website</a>
+                <div className="project-links">
+                  <a href={project.href} target="_blank" rel="noreferrer">Live Demo</a>
+                  {'codeHref' in project && project.codeHref && (
+                    <a href={project.codeHref} target="_blank" rel="noreferrer">View Code</a>
+                  )}
+                </div>
               </motion.article>
             ))}
           </div>
@@ -284,37 +331,62 @@ function App() {
             variants={{
               visible: {
                 transition: {
-                  staggerChildren: 0.12,
-                  delayChildren: 0.2
+                  staggerChildren: 0.1,
+                  delayChildren: 0.15
                 }
               }
             }}
           >
             {contacts.map((contact, index) => {
-              const platform = ['email', 'github', 'kaggle', 'linkedin', 'fiverr'][index];
               return (
                 <motion.a
                   key={contact.label}
                   className="contact-card"
-                  data-platform={platform}
+                  style={{ '--contact-color': contactColorMap[contact.icon] } as React.CSSProperties}
+                  data-platform={contact.icon}
                   href={contact.href}
                   target="_blank"
                   rel="noreferrer"
                   variants={{
-                    hidden: { opacity: 0, y: 40 },
+                    hidden: { 
+                      opacity: 0
+                    },
                     visible: { 
-                      opacity: 1, 
-                      y: 0, 
-                      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+                      opacity: 1,
+                      transition: { 
+                        duration: 0.5,
+                        ease: "easeInOut",
+                        delay: index * 0.08
+                      } 
                     }
                   }}
                   whileHover={{ 
-                    y: -10, 
-                    scale: 1.03,
-                    transition: { duration: 0.28, type: "spring" }
+                    y: -16, 
+                    scale: 1.08,
+                    transition: { 
+                      type: "spring", 
+                      stiffness: 400,
+                      damping: 22 
+                    } 
                   }}
+                  whileTap={{ 
+                    scale: 0.96 
+                  }}
+                  transition={{ type: "spring" }}
                 >
-                  <div className="contact-icon">{contact.icon}</div>
+                  <div className="contact-icon-wrap" aria-hidden="true">
+                    <div className="contact-icon-ring outer" />
+                    <div className="contact-icon-ring inner" />
+                    <div className="contact-icon">
+                      <img 
+                        src={`/images/${contact.icon}.svg`} 
+                        alt="" 
+                        width="64" 
+                        height="64" 
+                      />
+                    </div>
+                  </div>
+
                   <h3>{contact.label}</h3>
                 </motion.a>
               );
