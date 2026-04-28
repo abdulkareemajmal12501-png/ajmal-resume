@@ -1,13 +1,35 @@
-# Deployment to Netlify
+# Contact Section UI Update - Task Tracker
 
-## Steps
-- [x] Ensure build succeeds (fix TypeScript errors first)
-- [ ] Run `npm run build`
-- [ ] Run `netlify deploy --dir=dist --prod`
-- [ ] Update README.md with live URL
-- [ ] Complete deployment
+## Plan
+- [x] Analyze current contact section code (App.tsx + styles.css)
+- [x] Create plan and get user approval
+- [x] Update `src/App.tsx`: Filter to 4 contacts, simplify card JSX
+- [x] Update `src/styles.css`: Responsive grid, minimal cards, hover glow, cleanup
+- [x] Test/build to verify no errors
 
-**Current Issue:** TypeScript errors in src/App.fixed.tsx line 40 (unterminated string due to unescaped single quote in 'Time Net cafe\'s'). Need to fix App.tsx or remove App.fixed.tsx reference.
+## Completed Changes
 
-**Next:** Fix code, rebuild, deploy.
+### `src/App.tsx`
+- Removed Kaggle from contacts array
+- Removed `value` field from all contact objects (no longer needed)
+- Removed `<p className="contact-value">` from card JSX
+- Kept Framer Motion staggered fade-in animation
+- Kept click actions: `mailto:` for Email, `target="_blank"` for others
+
+### `src/styles.css`
+- `.contact-grid`: Changed from `1fr` to `repeat(4, 1fr)` on desktop
+- `.contact-card`: Reduced padding, cleaner minimal design
+- Removed unused platform color rules (phone, location, kaggle)
+- Added enhanced hover glow: `scale(1.06)` + colored box-shadow using `--contact-color`
+- Responsive breakpoints:
+  - Desktop (>900px): 4 columns
+  - Tablet (640-900px): 2 columns
+  - Mobile (<640px): 1 column
+- Kept existing dark theme, neon pulse animations, and fade-in effects
+
+## Git Push Plan
+- [ ] Stage all changes (including new assets and helper scripts)
+- [ ] Commit with a descriptive message
+- [ ] Push `blackboxai/contact-original-icons` to origin
+- [ ] Open Pull Request to `main`
 
